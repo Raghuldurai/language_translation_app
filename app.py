@@ -1,10 +1,17 @@
 from flask import Flask, request, render_template
 from transformers import MarianMTModel, MarianTokenizer
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-# Specify the model and tokenizer for translation (English to French)
-model_name = 'Helsinki-NLP/opus-mt-en-fr'
+# Load environment variables
+load_dotenv()
+
+# Get the model_name from environment variable
+model_name = os.getenv('model_name')
+
+# Initialize tokenizer and model
 tokenizer = MarianTokenizer.from_pretrained(model_name)
 model = MarianMTModel.from_pretrained(model_name)
 
